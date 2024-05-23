@@ -1,45 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const InvestmentChoice = ({ nextSubStep, subStep, nextStep, prevStep }) => {
+const InvestmentChoice = ({ nextStep, prevStep }) => {
+  const [investmentOption, setInvestmentOption] = useState('');
+
   const handleChange = (e) => {
-    // Handle change if needed
+    setInvestmentOption(e.target.value);
   };
 
-  const handleNext = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (subStep < 3) {
-      nextSubStep();
-    } else {
-      nextStep();
-    }
+    nextStep();
   };
 
   return (
-    <form onSubmit={handleNext}>
+    <form onSubmit={handleSubmit}>
       <h2>Investment Choice</h2>
-      {subStep === 1 && (
-        <>
-          <label>
-            <input type="radio" name="investment" value="Option 1" onChange={handleChange} /> Option 1
-          </label>
-        </>
-      )}
-      {subStep === 2 && (
-        <>
-          <label>
-            <input type="radio" name="investment" value="Option 2" onChange={handleChange} /> Option 2
-          </label>
-        </>
-      )}
-      {subStep === 3 && (
-        <>
-          <label>
-            <input type="radio" name="investment" value="Option 3" onChange={handleChange} /> Option 3
-          </label>
-        </>
-      )}
+      <label>
+        <input type="radio" name="investment" value="Option 1" onChange={handleChange} /> Option 1
+      </label>
+      <label>
+        <input type="radio" name="investment" value="Option 2" onChange={handleChange} /> Option 2
+      </label>
+      <label>
+        <input type="radio" name="investment" value="Option 3" onChange={handleChange} /> Option 3
+      </label>
       <button type="button" onClick={prevStep}>Back</button>
-      <button type="submit">{subStep === 3 ? 'Next Step' : 'Next'}</button>
+      <button type="submit">Next</button>
     </form>
   );
 };
