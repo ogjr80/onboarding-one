@@ -1,20 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-const CertificateUpload = ({ nextStep, prevStep }) => {
-  const [certificate, setCertificate] = useState(null);
-
+const CertificateUpload = ({ nextSubStep, subStep, nextStep, prevStep }) => {
   const handleChange = (e) => {
-    setCertificate(e.target.files[0]);
+    // Handle file change if needed
   };
 
-  const handleSubmit = (e) => {
+  const handleNext = (e) => {
     e.preventDefault();
-    // Save data and go to next step
     nextStep();
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleNext}>
       <h2>Certificate of Membership Upload</h2>
       <label>Upload Certificate</label>
       <input type="file" name="certificate" onChange={handleChange} />

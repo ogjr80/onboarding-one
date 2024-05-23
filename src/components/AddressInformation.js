@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const AddressInformation = ({ nextStep, prevStep }) => {
+const AddressInformation = ({ nextSubStep, subStep, nextStep, prevStep }) => {
   const [formData, setFormData] = useState({
     residentialAddress: '',
     postalAddress: ''
@@ -10,21 +10,32 @@ const AddressInformation = ({ nextStep, prevStep }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleNext = (e) => {
     e.preventDefault();
-    // Save data and go to next step
-    nextStep();
+    if (subStep < 2) {
+      nextSubStep();
+    } else {
+      nextStep();
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleNext}>
       <h2>Address Information</h2>
-      <label>Residential Address</label>
-      <input type="text" name="residentialAddress" placeholder="Residential Address" value={formData.residentialAddress} onChange={handleChange} />
-      <label>Postal Address</label>
-      <input type="text" name="postalAddress" placeholder="Postal Address" value={formData.postalAddress} onChange={handleChange} />
+      {subStep === 1 && (
+        <>
+          <label>Residential Address</label>
+          <input type="text" name="residentialAddress" placeholder="Residential Address" value={formData.residentialAddress} onChange={handleChange} />
+        </>
+      )}
+      {subStep === 2 && (
+        <>
+          <label>Postal Address</label>
+          <input type="text" name="postalAddress" placeholder="Postal Address" value={formData.postalAddress} onChange={handleChange} />
+        </>
+      )}
       <button type="button" onClick={prevStep}>Back</button>
-      <button type="submit">Next</button>
+      <button type="submit">{subStep === 2 ? 'Next Step' : 'Next'}</button>
     </form>
   );
 };

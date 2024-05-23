@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Beneficiaries = ({ nextStep, prevStep }) => {
+const Beneficiaries = ({ nextSubStep, subStep, nextStep, prevStep }) => {
   const [formData, setFormData] = useState({
     beneficiaryName: '',
     beneficiaryRelationship: '',
@@ -11,23 +11,38 @@ const Beneficiaries = ({ nextStep, prevStep }) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleNext = (e) => {
     e.preventDefault();
-    // Save data and go to next step
-    nextStep();
+    if (subStep < 3) {
+      nextSubStep();
+    } else {
+      nextStep();
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleNext}>
       <h2>Beneficiaries</h2>
-      <label>Full Name</label>
-      <input type="text" name="beneficiaryName" placeholder="Full Name" value={formData.beneficiaryName} onChange={handleChange} />
-      <label>Relationship</label>
-      <input type="text" name="beneficiaryRelationship" placeholder="Relationship" value={formData.beneficiaryRelationship} onChange={handleChange} />
-      <label>Percentage Allocation</label>
-      <input type="number" name="beneficiaryPercentage" placeholder="Percentage Allocation" value={formData.beneficiaryPercentage} onChange={handleChange} />
+      {subStep === 1 && (
+        <>
+          <label>Full Name</label>
+          <input type="text" name="beneficiaryName" placeholder="Full Name" value={formData.beneficiaryName} onChange={handleChange} />
+        </>
+      )}
+      {subStep === 2 && (
+        <>
+          <label>Relationship</label>
+          <input type="text" name="beneficiaryRelationship" placeholder="Relationship" value={formData.beneficiaryRelationship} onChange={handleChange} />
+        </>
+      )}
+      {subStep === 3 && (
+        <>
+          <label>Percentage Allocation</label>
+          <input type="number" name="beneficiaryPercentage" placeholder="Percentage Allocation" value={formData.beneficiaryPercentage} onChange={handleChange} />
+        </>
+      )}
       <button type="button" onClick={prevStep}>Back</button>
-      <button type="submit">Next</button>
+      <button type="submit">{subStep === 3 ? 'Next Step' : 'Next'}</button>
     </form>
   );
 };
