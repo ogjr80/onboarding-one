@@ -40,7 +40,7 @@ const PersonalDetails = ({ nextSubStep, subStep, nextStep }) => {
       {subStep === 3 && (
         <>
           <label>ID Number</label>
-          <input type="text" name="idNumber" placeholder="ID Number" value={formData.idNumber} onChange={handleChange} />
+          <input type="text" name="idNumber" placeholder="13 digits ID Number" value={formData.idNumber} onChange={handleChange} />
         </>
       )}
       {subStep === 4 && (

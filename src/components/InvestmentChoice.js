@@ -16,13 +16,16 @@ const InvestmentChoice = ({ nextStep, prevStep }) => {
     <form onSubmit={handleSubmit}>
       <h2>Investment Choice</h2>
       <label>
-        <input type="radio" name="investment" value="Option 1" onChange={handleChange} /> Option 1
+        <input type="radio" name="investment" value="Option 1" onChange={handleChange} /> Growth Risk Profile
       </label>
       <label>
-        <input type="radio" name="investment" value="Option 2" onChange={handleChange} /> Option 2
+        <input type="radio" name="investment" value="Option 2" onChange={handleChange} /> Conservative Risk Profile
       </label>
       <label>
-        <input type="radio" name="investment" value="Option 3" onChange={handleChange} /> Option 3
+        <input type="radio" name="investment" value="Option 3" onChange={handleChange} /> Capital Protection Risk Profile
+      </label>
+      <label>
+        <input type="radio" name="investment" value="Option 3" onChange={handleChange} /> Shariah Risk Profile
       </label>
       <button type="button" onClick={prevStep}>Back</button>
       <button type="submit">Next</button>
