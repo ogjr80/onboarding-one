@@ -14,7 +14,7 @@ body, html, #root {
   background-color: #f4f4f4;
 }
 
-/* Progress Bar Styles */
+/* Enhanced Progress Bar Styles */
 .progress-bar {
   width: 80%;
   background-color: #e0e0e0;
@@ -43,6 +43,17 @@ body, html, #root {
   position: absolute;
   width: 100%;
   text-align: center;
+}
+
+.milestone {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 /* Form Styles */
@@ -127,4 +138,53 @@ form label {
   font-weight: bold;
   color: #4ca1af;
   margin-top: 10px;
+}
+
+/* Modal Styles */
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: Arial, sans-serif;
+}
+
+.modal-content h2 {
+  color: #4ca1af;
+  margin-bottom: 20px;
+}
+
+.modal-content p {
+  color: #333;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.modal-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  background-color: #76c7c0;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  margin: 5px;
+}
+
+.modal-button:hover {
+  background-color: #60a5a2;
+}
+
+.cancel-button {
+  background-color: #ccc;
+}
+
+.cancel-button:hover {
+  background-color: #999;
 }

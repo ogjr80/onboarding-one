@@ -12,6 +12,8 @@ import MedicalAidSelection from './components/MedicalAidSelection';
 import CertificateUpload from './components/CertificateUpload';
 import Review from './components/Review';
 import './App.css'; 
+import 'react-tooltip/dist/react-tooltip.css'; 
+
 
 const App = () => {
   const [step, setStep] = useState(1);
