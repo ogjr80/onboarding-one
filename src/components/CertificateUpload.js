@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import ConfirmationModal from './ConfirmationModal';
 
 const CertificateUpload = ({ nextStep, prevStep }) => {
   const [certificate, setCertificate] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleChange = (e) => {
     setCertificate(e.target.files[0]);
@@ -9,7 +11,11 @@ const CertificateUpload = ({ nextStep, prevStep }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Save data and go to next step
+    setIsModalOpen(true);
+  };
+
+  const handleConfirm = () => {
+    setIsModalOpen(false);
     nextStep();
   };
 
@@ -20,6 +26,7 @@ const CertificateUpload = ({ nextStep, prevStep }) => {
       <input type="file" name="certificate" onChange={handleChange} />
       <button type="button" onClick={prevStep}>Back</button>
       <button type="submit">Next</button>
+      <ConfirmationModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} onConfirm={handleConfirm} />
     </form>
   );
 };

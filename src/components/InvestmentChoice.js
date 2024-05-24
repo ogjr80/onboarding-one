@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import ConfirmationModal from './ConfirmationModal';
 
 const InvestmentChoice = ({ nextStep, prevStep }) => {
   const [investmentOption, setInvestmentOption] = useState('');
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleChange = (e) => {
     setInvestmentOption(e.target.value);
@@ -9,7 +11,11 @@ const InvestmentChoice = ({ nextStep, prevStep }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Save data and go to next step
+    setIsModalOpen(true);
+  };
+
+  const handleConfirm = () => {
+    setIsModalOpen(false);
     nextStep();
   };
 
@@ -27,6 +33,7 @@ const InvestmentChoice = ({ nextStep, prevStep }) => {
       </label>
       <button type="button" onClick={prevStep}>Back</button>
       <button type="submit">Next</button>
+      <ConfirmationModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} onConfirm={handleConfirm} />
     </form>
   );
 };

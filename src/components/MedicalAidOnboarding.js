@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ConfirmationModal from './ConfirmationModal';
 
 const MedicalAidOnboarding = ({ nextStep, prevStep }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    setIsModalOpen(true);
+  };
+
+  const handleConfirm = () => {
+    setIsModalOpen(false);
     nextStep();
   };
 
@@ -12,6 +20,7 @@ const MedicalAidOnboarding = ({ nextStep, prevStep }) => {
       <p>Overview of available medical aid options.</p>
       <button type="button" onClick={prevStep}>Back</button>
       <button type="submit">Next</button>
+      <ConfirmationModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} onConfirm={handleConfirm} />
     </form>
   );
 };

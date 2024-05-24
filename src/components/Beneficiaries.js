@@ -1,33 +1,64 @@
 import React, { useState } from 'react';
+import HelpIcon from './HelpIcon';
+import ConfirmationModal from './ConfirmationModal';
 
-const Beneficiaries = ({ nextStep, prevStep }) => {
+const Beneficiaries = ({ nextSubStep, subStep, nextStep, prevStep }) => {
   const [formData, setFormData] = useState({
     beneficiaryName: '',
     beneficiaryRelationship: '',
     beneficiaryPercentage: ''
   });
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleNext = (e) => {
     e.preventDefault();
-    // Save data and go to next step
+    if (subStep < 3) {
+      nextSubStep();
+    } else {
+      setIsModalOpen(true);
+    }
+  };
+
+  const handleConfirm = () => {
+    setIsModalOpen(false);
     nextStep();
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleNext}>
       <h2>Beneficiaries</h2>
-      <label>Full Name</label>
-      <input type="text" name="beneficiaryName" placeholder="Full Name" value={formData.beneficiaryName} onChange={handleChange} />
-      <label>Relationship</label>
-      <input type="text" name="beneficiaryRelationship" placeholder="Relationship" value={formData.beneficiaryRelationship} onChange={handleChange} />
-      <label>Percentage Allocation</label>
-      <input type="number" name="beneficiaryPercentage" placeholder="Percentage Allocation" value={formData.beneficiaryPercentage} onChange={handleChange} />
+      {subStep === 1 && (
+        <>
+          <label>
+            Full Name <HelpIcon message="Enter the full name of your beneficiary" />
+          </label>
+          <input type="text" name="beneficiaryName" placeholder="Full Name" value={formData.beneficiaryName} onChange={handleChange} />
+        </>
+      )}
+      {subStep === 2 && (
+        <>
+          <label>
+            Relationship <HelpIcon message="Enter your relationship with the beneficiary" />
+          </label>
+          <input type="text" name="beneficiaryRelationship" placeholder="Relationship" value={formData.beneficiaryRelationship} onChange={handleChange} />
+        </>
+      )}
+      {subStep === 3 && (
+        <>
+          <label>
+            Percentage Allocation <HelpIcon message="Enter the percentage allocation for the beneficiary" />
+          </label>
+          <input type="number" name="beneficiaryPercentage" placeholder="Percentage Allocation" value={formData.beneficiaryPercentage} onChange={handleChange} />
+        </>
+      )}
       <button type="button" onClick={prevStep}>Back</button>
-      <button type="submit">Next</button>
+      <button type="submit">{subStep === 3 ? 'Next Step' : 'Next'}</button>
+      <ConfirmationModal isOpen={isModalOpen} onRequestClose={() => setIsModalOpen(false)} onConfirm={handleConfirm} />
     </form>
   );
 };
